@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year 2026 Fireworks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Pacifico&family=Satisfy&family=Yellowtail&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0c0c14, #12121f, #1a1a2e);
+            color: #f0f0f0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        /* Form Styles */
+        .form-container {
+            background: rgba(20, 20, 30, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 30px;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff3366, #ffcc00, #33ccff);
+            z-index: 1;
+        }
+        
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff3366, #ffcc00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 51, 102, 0.3);
+            letter-spacing: 1px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #aaa;
+            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #ffcc00;
+            font-weight: 500;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 20, 0.7);
+            color: #f0f0f0;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #ff3366;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
+            background: rgba(15, 15, 25, 0.8);
+        }
+        
+        button {
+            background: linear-gradient(45deg, #ff3366, #ff9900);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            box-shadow: 0 5px 20px rgba(255, 51, 102, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff9900, #ff3366);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+        
+        button:hover::before {
+            left: 0;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 51, 102, 0.6);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        /* Animation Container */
+        .animation-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+        
+        .greeting {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 150;
+            text-align: center;
+            width: 100%;
+            padding: 20px;
+        }
+        
+        .new-year-text {
+            font-size: 5.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            background: linear-gradient(45deg, #ff3366, #ffcc00, #33ccff, #00ff99);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+            min-height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .typing-text {
+            border-right: 5px solid #ffcc00;
+            padding-right: 15px;
+            animation: blinkCursor 0.7s infinite;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .handwriting-font {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+        }
+        
+        .personalized-greeting {
+            font-size: 3.5rem;
+            color: #ffcc00;
+            margin-top: 20px;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            animation: fadeInOut 4s infinite;
+            font-weight: 600;
+            font-family: 'Great Vibes', cursive;
+        }
+        
+        /* Fireworks */
+        .firework {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            box-shadow: 0 0 12px 3px;
+            z-index: 50;
+        }
+        
+        .explosion {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 50;
+        }
+        
+        /* Simple Back Button */
+        .back-button {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+            background: rgba(20, 20, 30, 0.8);
+            color: #ffcc00;
+            border: 2px solid rgba(255, 204, 0, 0.3);
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 204, 0, 0.1);
+            border-color: rgba(255, 204, 0, 0.6);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+        }
+        
+        /* Font Options Panel */
+        .font-options {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .font-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .font-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .font-btn.active {
+            background: rgba(255, 204, 0, 0.3);
+            border-color: #ffcc00;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+        }
+        
+        /* Animations */
+        @keyframes blinkCursor {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: #ffcc00; }
+        }
+        
+        @keyframes textGlow {
+            0% {
+                filter: drop-shadow(0 0 15px rgba(255, 51, 102, 0.7));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 25px rgba(255, 204, 0, 0.7));
+                transform: scale(1.03);
+            }
+            100% {
+                filter: drop-shadow(0 0 15px rgba(51, 204, 255, 0.7));
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* Star Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .new-year-text {
+                font-size: 4.2rem;
+                min-height: 110px;
+            }
+            
+            .personalized-greeting {
+                font-size: 2.8rem;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            button {
+                padding: 16px 35px;
+                font-size: 1.1rem;
+            }
+            
+            .font-options {
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.9rem;
+            }
+            
+            .new-year-text {
+                font-size: 3.2rem;
+                min-height: 90px;
+            }
+            
+            .personalized-greeting {
+                font-size: 2.2rem;
+            }
+            
+            button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .back-button {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+            
+            .font-options {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Star Background -->
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="form-container" id="formContainer">
+            <h1>Happy New Year 2026</h1>
+            <p class="subtitle">Enter your name and choose a font style for your personalized celebration</p>
+            
+            <div class="input-group">
+                <label for="name"><i class="fas fa-user"></i> Your Name</label>
+                <input type="text" id="name" placeholder="Enter your name" required autofocus>
+            </div>
+            
+            <div class="font-options">
+                <span style="color: #ffcc00; margin-right: 10px;">Font Style:</span>
+                <button class="font-btn active" data-font="Dancing Script">Dancing Script</button>
+                <button class="font-btn" data-font="Great Vibes">Great Vibes</button>
+                <button class="font-btn" data-font="Pacifico">Pacifico</button>
+                <button class="font-btn" data-font="Satisfy">Satisfy</button>
+                <button class="font-btn" data-font="Yellowtail">Yellowtail</button>
+            </div>
+            
+            <button id="nextButton">
+                <i class="fas fa-fireworks"></i> Launch Fireworks
+            </button>
+        </div>
+        
+        <div class="animation-container" id="animationContainer">
+            <div class="greeting">
+                <div class="new-year-text" id="typingText"></div>
+                <div class="personalized-greeting" id="personalizedGreeting"></div>
+            </div>
+            
+            <button class="back-button" id="backButton">
+                <i class="fas fa-redo"></i> Start Again
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const formContainer = document.getElementById('formContainer');
+            const animationContainer = document.getElementById('animationContainer');
+            const nextButton = document.getElementById('nextButton');
+            const backButton = document.getElementById('backButton');
+            const nameInput = document.getElementById('name');
+            const personalizedGreeting = document.getElementById('personalizedGreeting');
+            const typingText = document.getElementById('typingText');
+            const starsContainer = document.getElementById('stars');
+            const fontButtons = document.querySelectorAll('.font-btn');
+            
+            // Text to type
+            const newYearText = "Happy New Year 2026!";
+            let typingSpeed = 120; // milliseconds per character
+            let selectedFont = 'Dancing Script';
+            
+            // Font families mapping
+            const fontFamilies = {
+                'Dancing Script': "'Dancing Script', cursive",
+                'Great Vibes': "'Great Vibes', cursive",
+                'Pacifico': "'Pacifico', cursive",
+                'Satisfy': "'Satisfy', cursive",
+                'Yellowtail': "'Yellowtail', cursive"
+            };
+            
+            // Set up font selection buttons
+            fontButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    fontButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedFont = this.dataset.font;
+                });
+            });
+            
+            // Create star background
+            function createStars() {
+                for (let i = 0; i < 150; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.width = Math.random() * 3 + 'px';
+                    star.style.height = star.style.width;
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.animationDelay = Math.random() * 5 + 's';
+                    starsContainer.appendChild(star);
+                }
+            }
+            
+            createStars();
+            
+            // Array to keep track of active fireworks for cleanup
+            let activeFireworks = [];
+            let animationActive = false;
+            
+            // Typing animation function with cursive style
+            function typeWriter(text, element, speed) {
+                return new Promise((resolve) => {
+                    let i = 0;
+                    element.innerHTML = '';
+                    element.classList.add('typing-text');
+                    element.style.fontFamily = fontFamilies[selectedFont];
+                    
+                    // Set a slightly different speed for cursive to feel more natural
+                    const cursiveSpeed = speed * 0.9;
+                    
+                    function type() {
+                        if (i < text.length) {
+                            // Add the next character
+                            element.innerHTML += text.charAt(i);
+                            i++;
+                            
+                            // Add a slight delay for spaces to simulate thinking in handwriting
+                            const delay = text.charAt(i-1) === ' ' ? cursiveSpeed * 1.5 : cursiveSpeed;
+                            
+                            // Occasionally add a slightly longer delay to simulate handwriting pauses
+                            const randomDelay = Math.random() > 0.9 ? cursiveSpeed * 2 : 0;
+                            
+                            setTimeout(type, delay + randomDelay);
+                        } else {
+                            element.classList.remove('typing-text');
+                            // After typing is complete, start the glow animation
+                            element.style.animation = 'textGlow 3s infinite alternate';
+                            resolve();
+                        }
+                    }
+                    
+                    type();
+                });
+            }
+            
+            // Function to create a firework
+            function createFirework(x, y, color) {
+                // Create the shooting firework
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = x + 'px';
+                firework.style.top = window.innerHeight + 'px';
+                firework.style.backgroundColor = color;
+                firework.style.boxShadow = `0 0 12px 3px ${color}`;
+                animationContainer.appendChild(firework);
+                activeFireworks.push(firework);
+                
+                // Animate shooting up
+                const shootAnimation = firework.animate([
+                    { transform: `translateY(${window.innerHeight}px)`, opacity: 1 },
+                    { transform: `translateY(${y}px)`, opacity: 1 }
+                ], {
+                    duration: 800 + Math.random() * 400,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                });
+                
+                // When shooting animation completes, explode
+                shootAnimation.onfinish = () => {
+                    firework.remove();
+                    activeFireworks = activeFireworks.filter(f => f !== firework);
+                    createExplosion(x, y, color);
+                };
+            }
+            
+            // Function to create explosion
+            function createExplosion(x, y, color) {
+                const explosion = document.createElement('div');
+                explosion.className = 'explosion';
+                explosion.style.left = x + 'px';
+                explosion.style.top = y + 'px';
+                explosion.style.backgroundColor = color;
+                explosion.style.width = '5px';
+                explosion.style.height = '5px';
+                animationContainer.appendChild(explosion);
+                activeFireworks.push(explosion);
+                
+                // Animate explosion
+                const explodeAnimation = explosion.animate([
+                    { transform: 'scale(0)', opacity: 1 },
+                    { transform: 'scale(1.8)', opacity: 0 }
+                ], {
+                    duration: 1200,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                });
+                
+                // Remove explosion after animation
+                explodeAnimation.onfinish = () => {
+                    explosion.remove();
+                    activeFireworks = activeFireworks.filter(f => f !== explosion);
+                };
+                
+                // Create smaller particles
+                const particleCount = 40 + Math.floor(Math.random() * 30);
+                for (let i = 0; i < particleCount; i++) {
+                    createParticle(x, y, color);
+                }
+            }
+            
+            // Function to create particles for explosion
+            function createParticle(x, y, color) {
+                const particle = document.createElement('div');
+                particle.className = 'firework';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 8px 2px ${color}`;
+                particle.style.width = '4px';
+                particle.style.height = '4px';
+                animationContainer.appendChild(particle);
+                activeFireworks.push(particle);
+                
+                // Random direction and distance
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 40 + Math.random() * 120;
+                const targetX = x + Math.cos(angle) * distance;
+                const targetY = y + Math.sin(angle) * distance;
+                
+                // Animate particle
+                const particleAnimation = particle.animate([
+                    { transform: 'translate(0, 0)', opacity: 1 },
+                    { transform: `translate(${targetX - x}px, ${targetY - y}px)`, opacity: 0 }
+                ], {
+                    duration: 800 + Math.random() * 800,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                });
+                
+                // Remove particle after animation
+                particleAnimation.onfinish = () => {
+                    particle.remove();
+                    activeFireworks = activeFireworks.filter(f => f !== particle);
+                };
+            }
+            
+            // Function to launch a random firework
+            function launchRandomFirework() {
+                if (!animationActive) return;
+                
+                const x = 100 + Math.random() * (window.innerWidth - 200);
+                const y = 100 + Math.random() * (window.innerHeight - 300);
+                
+                // Random color with dark theme emphasis
+                const colors = ['#ff3366', '#ff9900', '#ffcc00', '#33ccff', '#00ff99', '#cc66ff', '#ff6666'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                createFirework(x, y, color);
+                
+                // Schedule next firework randomly between 0.5 and 1.5 seconds
+                if (animationActive) {
+                    setTimeout(launchRandomFirework, 500 + Math.random() * 1000);
+                }
+            }
+            
+            // Function to start the animation
+            async function startAnimation() {
+                const name = nameInput.value.trim();
+                
+                // Validate input
+                if (!name) {
+                    alert('Please enter your name.');
+                    return;
+                }
+                
+                // Hide form and show animation
+                formContainer.style.display = 'none';
+                animationContainer.style.display = 'block';
+                
+                // Apply selected font to the greeting text
+                typingText.style.fontFamily = fontFamilies[selectedFont];
+                
+                // Start typing animation
+                await typeWriter(newYearText, typingText, typingSpeed);
+                
+                // Set personalized greeting after typing is complete
+                personalizedGreeting.textContent = `Wishing ${name} an amazing 2026!`;
+                personalizedGreeting.style.fontFamily = selectedFont === 'Dancing Script' ? "'Great Vibes', cursive" : fontFamilies[selectedFont];
+                
+                // Start unlimited fireworks
+                animationActive = true;
+                
+                // Launch initial fireworks
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        launchRandomFirework();
+                    }, i * 300);
+                }
+                
+                // Start continuous fireworks
+                setTimeout(launchRandomFirework, 1000);
+                
+                // Start ambient particles
+                createAmbientParticles();
+            }
+            
+            // Function to stop animation and go back to form
+            function stopAnimation() {
+                animationActive = false;
+                
+                // Remove all active fireworks
+                activeFireworks.forEach(firework => {
+                    if (firework.parentNode) {
+                        firework.parentNode.removeChild(firework);
+                    }
+                });
+                activeFireworks = [];
+                
+                // Reset typing text
+                typingText.innerHTML = '';
+                typingText.style.animation = '';
+                typingText.style.fontFamily = fontFamilies['Dancing Script'];
+                
+                // Clear personalized greeting
+                personalizedGreeting.textContent = '';
+                personalizedGreeting.style.fontFamily = "'Great Vibes', cursive";
+                
+                // Show form and hide animation
+                formContainer.style.display = 'block';
+                animationContainer.style.display = 'none';
+                
+                // Reset form
+                nameInput.value = '';
+                nameInput.focus();
+                
+                // Reset font selection
+                fontButtons.forEach(b => b.classList.remove('active'));
+                document.querySelector('.font-btn[data-font="Dancing Script"]').classList.add('active');
+                selectedFont = 'Dancing Script';
+            }
+            
+            // Event listeners
+            nextButton.addEventListener('click', startAnimation);
+            backButton.addEventListener('click', stopAnimation);
+            
+            // Also allow Enter key to submit
+            nameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') startAnimation();
+            });
+            
+            // Create ambient particles in the background
+            function createAmbientParticles() {
+                if (!animationActive) return;
+                
+                const particle = document.createElement('div');
+                particle.className = 'firework';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = window.innerHeight + 'px';
+                
+                const colors = ['rgba(255, 51, 102, 0.3)', 'rgba(255, 204, 0, 0.3)', 'rgba(51, 204, 255, 0.3)'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 8px 2px ${color}`;
+                particle.style.width = '3px';
+                particle.style.height = '3px';
+                animationContainer.appendChild(particle);
+                activeFireworks.push(particle);
+                
+                // Slow floating animation
+                const floatAnimation = particle.animate([
+                    { transform: 'translate(0, 0)', opacity: 0.6 },
+                    { transform: `translate(${Math.random() * 100 - 50}px, ${-100 - Math.random() * 200}px)`, opacity: 0 }
+                ], {
+                    duration: 3000 + Math.random() * 4000,
+                    easing: 'ease-in'
+                });
+                
+                floatAnimation.onfinish = () => {
+                    particle.remove();
+                    activeFireworks = activeFireworks.filter(f => f !== particle);
+                };
+                
+                // Schedule next ambient particle
+                if (animationActive) {
+                    setTimeout(createAmbientParticles, 200 + Math.random() * 800);
+                }
+            }
+            
+            // Auto-focus on name input when page loads
+            nameInput.focus();
+        });
+    </script>
+</body>
+</html>
