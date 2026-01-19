@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Spotify</title>
+<link rel="icon" type="image/png" href="https://open.spotifycdn.com/cdn/images/favicon32.b64ecc03.png">
+<style>
+  body {
+    margin:0;
+    min-height:100vh;
+    font-family:Arial, Helvetica, sans-serif;
+    background:radial-gradient(circle at top, #1a1a1a, #000);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding-top:40px;
+  }
+  .container {
+    width:420px;
+    text-align:center;
+  }
+  input {
+    width:100%;
+    padding:14px;
+    background:#000;
+    border:1px solid #555;
+    border-radius:4px;
+    color:white;
+    margin-bottom:6px;
+  }
+  .social {
+    width:100%;
+    padding:12px;
+    margin-bottom:12px;
+    background:#000;
+    border:1px solid #555;
+    border-radius:30px;
+    color:white;
+    cursor:pointer;
+  }
+  .err {
+    display:none;
+    color:#f15e6c;
+    font-size:13px;
+    text-align:left;
+    margin-bottom:14px;
+  }
+  button {
+    cursor:pointer;
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- LOGO -->
+  <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png" style="height:32px;margin-bottom:35px;">
+
+  <!-- SIGNUP PANEL -->
+  <div id="signupPanel">
+
+    <h1 style="font-size:32px; line-height:1.2; margin-bottom:35px;">Sign up to<br>start listening</h1>
+
+    <div style="text-align:left;font-size:14px;">Email address</div>
+    <input id="signupEmail" placeholder="name@domain.com" oninput="clearErr('signupEmail')">
+    <div id="signupEmailErr" class="err">⚠ Enter a valid email address.</div>
+
+    <div style="text-align:left;font-size:13px;color:#1ed760;margin-bottom:20px;cursor:pointer;">Use phone number instead.</div>
+
+    <button onclick="goSignupNext(this)" style="width:100%;padding:14px;background:#1ed760;border:none;border-radius:30px;font-weight:bold;transition:.1s;">Next</button>
+
+    <div style="margin:25px 0;color:#aaa;">or</div>
+
+    <button class="social">🟢 Sign up with Google</button>
+    <button class="social">🍎 Sign up with Apple</button>
+
+    <p style="margin-top:30px;font-size:14px;">Already have an account? <span style="color:#1ed760;cursor:pointer;" onclick="showLogin()">Log in</span></p>
+
+    <!-- SIGNUP STEP 2 -->
+    <div id="signupStep2" style="display:none;margin-top:30px; text-align:left;">
+
+      <div style="font-size:14px;">Password</div>
+      <input type="password" id="signupPassword" oninput="clearErr('signupPassword')">
+      <div id="signupPasswordErr" class="err">⚠ Enter a password.</div>
+
+      <div style="font-size:14px;">Date of birth</div>
+      <input type="date" id="signupDob" oninput="clearErr('signupDob')">
+      <div id="signupDobErr" class="err">⚠ You must be at least 13 years old.</div>
+
+      <button onclick="finishSignup(this)" style="width:100%;padding:14px;background:#1ed760;border:none;border-radius:30px;font-weight:bold;transition:.1s;margin-top:15px;">Create account</button>
+
+    </div>
+
+  </div>
+
+  <!-- LOGIN PANEL -->
+  <div id="loginPanel" style="display:none; text-align:left;">
+
+    <h1 style="font-size:32px;margin-bottom:30px; text-align:center;">Welcome back</h1>
+
+    <!-- LOGIN STEP 1: Email -->
+    <div id="loginStep1">
+      <div style="font-size:14px;">Email or username</div>
+      <input id="loginEmail" oninput="clearErr('loginEmail')">
+      <div id="loginEmailErr" class="err">⚠ Please enter your Spotify username or email address.</div>
+      <button onclick="goLoginPass(this)" style="width:100%;padding:14px;background:#1ed760;border:none;border-radius:30px;font-weight:bold;transition:.1s;">Continue</button>
+
+      <div style="margin:25px 0; color:#aaa; text-align:center;">or</div>
+
+      <button class="social">📱 Continue with phone number</button>
+      <button class="social">🟢 Continue with Google</button>
+      <button class="social">🔵 Continue with Facebook</button>
+      <button class="social">🍎 Continue with Apple</button>
+
+      <p style="margin-top:25px;font-size:14px; text-align:center;">Don’t have an account? <span style="color:#1ed760;cursor:pointer;" onclick="showSignup()">Sign up</span></p>
+    </div>
+
+    <!-- LOGIN STEP 2: Password -->
+    <div id="loginStep2" style="display:none;">
+      <div style="font-size:14px;">Password</div>
+      <input type="password" id="loginPassword" oninput="clearErr('loginPassword')">
+      <div id="loginPasswordErr" class="err">⚠ Enter your password.</div>
+
+      <button onclick="finishLogin(this)" style="width:100%;padding:14px;background:#1ed760;border:none;border-radius:30px;font-weight:bold;transition:.1s;margin-top:15px;">Log in</button>
+    </div>
+
+  </div>
+
+  <!-- SUCCESS PANEL -->
+  <div id="success" style="display:none;margin-top:40px;text-align:center;">
+    <h2 style="color:#1ed760;">Success</h2>
+    <p>🎉 3 months free subscription unlocked</p>
+  </div>
+
+</div>
+
+<script>
+function animate(b){b.style.transform="scale(.95)";setTimeout(()=>b.style.transform="scale(1)",100);}
+
+// SIGNUP FLOW
+function goSignupNext(b){
+  animate(b);
+  if(signupEmail.value===""){
+    signupEmail.style.border="1px solid #f15e6c";
+    signupEmailErr.style.display="block";
+    return;
+  }
+  signupStep2.style.display="block";
+}
+
+function finishSignup(b){
+  animate(b);
+  let ok=true;
+
+  if(signupPassword.value===""){
+    signupPassword.style.border="1px solid #f15e6c";
+    signupPasswordErr.style.display="block";
+    ok=false;
+  }
+  if(signupDob.value===""){
+    signupDob.style.border="1px solid #f15e6c";
+    signupDobErr.style.display="block";
+    ok=false;
+  } else {
+    const age=new Date().getFullYear()-new Date(signupDob.value).getFullYear();
+    if(age<13){signupDobErr.style.display="block";ok=false;}
+  }
+  if(!ok) return;
+
+  signupPanel.style.display="none";
+  success.style.display="block";
+}
+
+// LOGIN FLOW
+function goLoginPass(b){
+  animate(b);
+  if(loginEmail.value===""){
+    loginEmail.style.border="1px solid #f15e6c";
+    loginEmailErr.style.display="block";
+    return;
+  }
+  // Hide step 1, show password step
+  loginStep1.style.display = "none";
+  loginStep2.style.display = "block";
+}
+
+function finishLogin(b){
+  animate(b);
+  let ok=true;
+  if(loginPassword.value===""){
+    loginPassword.style.border="1px solid #f15e6c";
+    loginPasswordErr.style.display="block";
+    ok=false;
+  }
+  if(!ok) return;
+
+  loginPanel.style.display="none";
+  success.style.display="block";
+}
+
+// CLEAR ERRORS
+function clearErr(id){
+  const el=document.getElementById(id);
+  el.style.border="1px solid #555";
+  const e=document.getElementById(id+"Err");
+  if(e) e.style.display="none";
+}
+
+// TOGGLE PANELS
+function showLogin(){
+  signupPanel.style.display="none";
+  loginPanel.style.display="block";
+  loginStep1.style.display="block";
+  loginStep2.style.display="none";
+}
+
+function showSignup(){
+  loginPanel.style.display="none";
+  signupPanel.style.display="block";
+}
+</script>
+</body>
+</html>
